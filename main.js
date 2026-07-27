@@ -284,45 +284,6 @@ revealElements.forEach(element => {
     revealObserver.observe(element);
 });
 
-
-// -----------------------------
-// Contact Form
-// -----------------------------
-
-const contactForm = document.getElementById("contactForm");
-
-contactForm.addEventListener("submit", event => {
-
-    event.preventDefault();
-
-    const name = contactForm.querySelector("input[type='text']");
-    const email = contactForm.querySelector("input[type='email']");
-    const message = contactForm.querySelector("textarea");
-
-    if (
-        !name.value.trim() ||
-        !email.value.trim() ||
-        !message.value.trim()
-    ) {
-        alert("Please complete all fields.");
-        return;
-    }
-
-    const emailPattern =
-        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailPattern.test(email.value)) {
-        alert("Please enter a valid email address.");
-        return;
-    }
-
-    alert("Thank you! Your message has been sent.");
-
-    contactForm.reset();
-
-});
-
-
 // -----------------------------
 // Button Ripple Effect
 // -----------------------------
