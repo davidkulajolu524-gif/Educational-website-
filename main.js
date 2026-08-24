@@ -296,7 +296,7 @@ async function loadLessons() {
         lessonLists.forEach(list => {
             const course = courses.find(item => item.id === Number(list.closest(".course-card").dataset.courseId));
             if (!course) return;
-            list.innerHTML = course.lesson_list.map(lesson => `<li><strong>${lesson.title}</strong><br>${lesson.topic}</li>`).join("");
+            list.innerHTML = course.lesson_list.map(lesson => `<li><strong>${lesson.title}</strong><br>${lesson.topic}<small>${lesson.content}</small></li>`).join("");
         });
     } catch (error) {
         lessonLists.forEach(list => { list.innerHTML = "<li>Lessons will be available soon.</li>"; });
@@ -308,7 +308,7 @@ loadLessons();
 function renderHomeCourses(courses) {
     const homeCourses = document.getElementById("homeCourses");
     if (!homeCourses) return;
-    homeCourses.innerHTML = courses.map(course => `<article class="course-card" data-course-id="${course.id}"><i class="fa-solid fa-book-open"></i><h3>${course.title}</h3><p>${course.category} learning path with practical topics and projects.</p><span>${course.lessons} Lessons</span>${course.price > 0 ? `<button class="btn home-enroll-button" data-course-id="${course.id}" type="button">Pay $${promoIsActive(course) ? course.price : course.original_price}</button>` : `<button class="btn home-enroll-button" data-course-id="${course.id}" type="button">Start course</button>`}<button class="lesson-toggle" type="button">View topics</button><ol class="lesson-list">${course.lesson_list.map(lesson => `<li><strong>${lesson.title}</strong><br>${lesson.topic}</li>`).join("")}</ol></article>`).join("");
+    homeCourses.innerHTML = courses.map(course => `<article class="course-card" data-course-id="${course.id}"><i class="fa-solid fa-book-open"></i><h3>${course.title}</h3><p>${course.category} learning path with practical topics and projects.</p><span>${course.lessons} Lessons</span>${course.price > 0 ? `<button class="btn home-enroll-button" data-course-id="${course.id}" type="button">Pay $${promoIsActive(course) ? course.price : course.original_price}</button>` : `<button class="btn home-enroll-button" data-course-id="${course.id}" type="button">Start course</button>`}<button class="lesson-toggle" type="button">View topics</button><ol class="lesson-list">${course.lesson_list.map(lesson => `<li><strong>${lesson.title}</strong><br>${lesson.topic}<small>${lesson.content}</small></li>`).join("")}</ol></article>`).join("");
     homeCourses.querySelectorAll(".lesson-toggle").forEach(button => button.addEventListener("click", () => {
         const list = button.nextElementSibling;
         const open = list.classList.toggle("open");
@@ -396,7 +396,7 @@ function renderMarketplace(courses) {
         const active = promoIsActive(course);
         const paid = course.price > 0;
         const enrolled = JSON.parse(localStorage.getItem("eduverse-enrolled") || "[]").includes(course.id);
-        return `<article class="course-card marketplace-card" data-course-id="${course.id}"><div class="marketplace-card-top"><span class="course-type ${paid ? "paid" : "free"}">${course.type}</span>${active ? `<span class="discount-badge">-${course.discount}%</span>` : ""}</div><i class="fa-solid ${paid ? "fa-layer-group" : "fa-gift"}"></i><h3>${course.title}</h3><p>${course.category} learning path with practical topics and projects.</p><span>${course.lessons} Lessons</span><div class="price-row">${paid ? `<strong>$${active ? course.price : course.original_price}</strong>${active ? `<del>$${course.original_price}</del>` : ""}` : "<strong>Free</strong>"}</div><button class="enroll-button" data-course-id="${course.id}" type="button">${enrolled ? "Open course" : paid ? "Enroll now" : "Enroll free"}</button><button class="lesson-toggle" type="button">View topics</button><ol class="lesson-list">${course.lesson_list.map(lesson => `<li><strong>${lesson.title}</strong><br>${lesson.topic}</li>`).join("")}</ol></article>`;
+        return `<article class="course-card marketplace-card" data-course-id="${course.id}"><div class="marketplace-card-top"><span class="course-type ${paid ? "paid" : "free"}">${course.type}</span>${active ? `<span class="discount-badge">-${course.discount}%</span>` : ""}</div><i class="fa-solid ${paid ? "fa-layer-group" : "fa-gift"}"></i><h3>${course.title}</h3><p>${course.category} learning path with practical topics and projects.</p><span>${course.lessons} Lessons</span><div class="price-row">${paid ? `<strong>$${active ? course.price : course.original_price}</strong>${active ? `<del>$${course.original_price}</del>` : ""}` : "<strong>Free</strong>"}</div><button class="enroll-button" data-course-id="${course.id}" type="button">${enrolled ? "Open course" : paid ? "Enroll now" : "Enroll free"}</button><button class="lesson-toggle" type="button">View topics</button><ol class="lesson-list">${course.lesson_list.map(lesson => `<li><strong>${lesson.title}</strong><br>${lesson.topic}<small>${lesson.content}</small></li>`).join("")}</ol></article>`;
     }).join("") || "<p>No courses match that search.</p>";
     marketplace.querySelectorAll(".lesson-toggle").forEach(button => button.addEventListener("click", () => {
         const list = button.nextElementSibling;
@@ -782,7 +782,7 @@ async function loadLearningPage() {
     document.getElementById("learningTitle").textContent = course.title;
     document.getElementById("learningCount").textContent = `${completedLessons.length} of ${course.lesson_list.length} lessons complete`;
     const lessonList = document.getElementById("learningLessons");
-    lessonList.innerHTML = course.lesson_list.map((lesson, index) => `<li class="learning-lesson ${completedLessons.includes(index) ? "completed" : ""}"><button class="lesson-complete" data-index="${index}" type="button"><i class="fa-solid ${completedLessons.includes(index) ? "fa-circle-check" : "fa-circle"}"></i></button><span><strong>${lesson.title}</strong><small>${lesson.topic}</small></span></li>`).join("");
+    lessonList.innerHTML = course.lesson_list.map((lesson, index) => `<li class="learning-lesson ${completedLessons.includes(index) ? "completed" : ""}"><button class="lesson-complete" data-index="${index}" type="button"><i class="fa-solid ${completedLessons.includes(index) ? "fa-circle-check" : "fa-circle"}"></i></button><span><strong>${lesson.title}</strong><small>${lesson.topic}</small><p>${lesson.content}</p></span></li>`).join("");
     document.getElementById("certificatePanel").hidden = completedLessons.length < course.lesson_list.length;
     document.getElementById("certificateName").textContent = user.name;
     document.getElementById("certificateCourse").textContent = course.title;

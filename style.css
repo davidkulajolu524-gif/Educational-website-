@@ -553,6 +553,8 @@ body.dark header {
     color: var(--primary);
     font-weight: 700;
 }
+.lesson-list small { display: block; margin-top: 6px; color: var(--text); line-height: 1.6; }
+.learning-lesson p { margin: 8px 0 0; color: var(--text); line-height: 1.65; }
 
 /* ===========================
    Categories

@@ -41,7 +41,60 @@ COURSES = [
     {"id": 8, "title": "Digital Marketing", "category": "Business", "price": 25, "original_price": 50, "discount": 50, "promo_ends": "2026-09-07T23:59:59+00:00", "lesson_list": [{"title": "Audience and content strategy", "topic": "Plan useful content for a specific audience."}, {"title": "Search engine fundamentals", "topic": "Help the right people discover your work."}, {"title": "Social campaign planning", "topic": "Build campaigns with a clear message and goal."}, {"title": "Measure campaign performance", "topic": "Use meaningful metrics to improve future campaigns."}]},
 ]
 
+LESSON_CONTENT = {
+    1: [
+        "Learn how semantic elements describe page structure, improve accessibility, and help browsers understand your content.",
+        "Practice building flexible rows and columns with Flexbox, including alignment, spacing, wrapping, and responsive breakpoints.",
+        "Use Grid tracks, areas, and reusable CSS classes to create consistent page layouts that are easy to maintain.",
+        "Create accessible labels, controls, focus states, and validation patterns for forms that work for every learner."
+    ],
+    2: [
+        "Work with variables, primitive values, arrays, objects, functions, and modern JavaScript syntax through small exercises.",
+        "Select DOM elements, listen for events, and update the interface in response to clicks, typing, and form submissions.",
+        "Use Fetch, promises, async functions, and error handling to request data from an API and keep users informed.",
+        "Plan a browser app, connect its interface to data, and organize the code into a complete working project."
+    ],
+    3: [
+        "Explore Python variables, strings, numbers, collections, conditionals, and loops by writing readable programs.",
+        "Define functions with clear parameters and return values, then split related behavior into reusable modules.",
+        "Read and write files safely and make HTTP requests while handling missing data and unexpected responses.",
+        "Combine input, business logic, and file or API data to automate a useful everyday task with Python."
+    ],
+    4: [
+        "Compare artificial intelligence, machine learning, and deep learning while learning how models find patterns in examples.",
+        "Clean, label, split, and document data so a model can learn from representative and reliable examples.",
+        "Understand layers, weights, activation functions, training, and evaluation without treating neural networks as magic.",
+        "Design a small AI prototype with measurable goals, transparent limits, and responsible handling of user data."
+    ],
+    5: [
+        "Learn to frame a design problem, identify user needs, and turn research observations into useful product insights.",
+        "Arrange content and navigation into clear flows, then sketch wireframes that communicate structure before styling.",
+        "Build a visual system with type scales, spacing rules, color roles, and reusable components.",
+        "Create a clickable prototype, test a realistic task, and use feedback to improve the experience."
+    ],
+    6: [
+        "Turn a broad question into a data workflow with a clear hypothesis, useful sources, and measurable outcomes.",
+        "Load, inspect, clean, transform, and summarize tabular data with practical Python analysis techniques.",
+        "Choose effective charts, label them clearly, and present patterns without overstating what the data proves.",
+        "Prepare features, train a baseline model, evaluate its results, and communicate uncertainty in the prediction."
+    ],
+    7: [
+        "Identify assets, threats, vulnerabilities, and likely impacts using core security principles and threat modeling.",
+        "Apply password hashing, multi-factor authentication, roles, and least-privilege access to protect accounts.",
+        "Review common web risks such as injection, cross-site scripting, and insecure configuration with defensive examples.",
+        "Create a repeatable security checklist covering code, dependencies, accounts, data, monitoring, and response."
+    ],
+    8: [
+        "Define a target audience, clarify their needs, and create a content plan with a consistent message and purpose.",
+        "Learn how search engines discover pages and improve useful content with clear structure, language, and metadata.",
+        "Plan a social campaign with a hook, creative formats, publishing schedule, audience, and measurable goal.",
+        "Track meaningful conversion and engagement metrics, interpret results, and use them to improve the next campaign."
+    ]
+}
+
 for course in COURSES:
+    for lesson, content in zip(course["lesson_list"], LESSON_CONTENT[course["id"]]):
+        lesson["content"] = content
     course["lessons"] = len(course["lesson_list"])
     course["type"] = "Free" if course["price"] == 0 else "Paid"
 
