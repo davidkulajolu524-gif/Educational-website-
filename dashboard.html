@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | EduVerse</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <header><nav class="navbar">
+        <a class="logo" href="index.html"><i class="fa-solid fa-graduation-cap"></i><span>EduVerse</span></a>
+        <div class="nav-right"><a class="back-link" href="courses.html">Browse courses</a><a class="back-link" href="certificates.html">Certificates</a><button id="theme-btn" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button><button class="menu-btn" aria-label="Open navigation"><i class="fa-solid fa-bars"></i></button></div>
+    </nav></header>
+    <main id="dashboard" class="dashboard-page">
+        <section class="dashboard-welcome"><div><p class="eyebrow">STUDENT DASHBOARD</p><h1>Welcome back, <span id="studentName">student</span>.</h1><p>Pick up where you left off and keep building your skills.</p></div><button id="logoutButton" class="logout-button" type="button"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</button></section>
+        <section class="dashboard-summary"><div><i class="fa-solid fa-user"></i><p>Account</p><strong id="studentEmail">Loading...</strong></div><div><i class="fa-solid fa-book-open"></i><p>Learning library</p><strong>8 courses</strong></div><div><i class="fa-solid fa-chart-simple"></i><p>Progress</p><strong>Saved automatically</strong></div></section>
+        <section class="dashboard-courses"><div class="dashboard-section-heading"><div><p class="eyebrow">YOUR LIBRARY</p><h2>Keep learning</h2></div><a class="text-link" href="courses.html">View all courses <i class="fa-solid fa-arrow-right"></i></a></div><div id="dashboardCourses" class="dashboard-course-grid"><p>Loading your courses...</p></div></section>
+    </main>
+    <footer><div class="footer-content"><div class="footer-logo"><i class="fa-solid fa-graduation-cap"></i><span>EduVerse</span></div><p>Learn deliberately. Build confidently.</p><p class="copyright">&copy; 2026 EduVerse. All Rights Reserved.</p></div></footer>
+    <script src="main.js"></script>
+</body>
+</html>

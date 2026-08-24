@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join EduVerse</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body class="auth-page">
+    <header><nav class="navbar">
+        <a class="logo" href="index.html"><i class="fa-solid fa-graduation-cap"></i><span>EduVerse</span></a>
+        <div class="nav-right"><a class="back-link" href="index.html">Back home</a><button id="theme-btn" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button></div>
+    </nav></header>
+    <main class="auth-layout">
+        <section class="auth-intro"><p class="eyebrow">YOUR NEXT CHAPTER</p><h1>Make room for <span>better skills.</span></h1><p>Join a focused learning community and keep your progress in one place.</p></section>
+        <section class="auth-card" aria-label="Account access">
+            <div class="auth-tabs"><button class="auth-tab active" data-mode="signup" type="button">Create account</button><button class="auth-tab" data-mode="login" type="button">Log in</button></div>
+            <form id="authForm">
+                <div id="nameField"><label for="authName">Name</label><input id="authName" name="name" type="text" autocomplete="name" required></div>
+                <label for="authEmail">Email</label><input id="authEmail" name="email" type="email" autocomplete="email" required>
+                <label for="authPassword">Password</label><input id="authPassword" name="password" type="password" minlength="8" autocomplete="new-password" required>
+                <button class="auth-submit" type="submit">Create account</button>
+                <p id="authMessage" class="auth-message" role="status"></p>
+            </form>
+            <a class="text-link auth-forgot" href="forgot-password.html">Forgot password?</a>
+        </section>
+    </main>
+    <script src="main.js"></script>
+</body>
+</html>
