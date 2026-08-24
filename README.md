@@ -21,4 +21,8 @@ Password reset codes and contact notifications are sent by SMTP when these envir
 
 This project is ready for Render, Railway, Fly.io, or any host that runs the `Procfile`. Set the service to install from `requirements.txt` and use `uvicorn backend:app --host 0.0.0.0 --port $PORT`.
 
+### Render
+
+Create a new Blueprint from this repository. Render will read `render.yaml`, install the requirements, start the FastAPI service, and check `/api/health`. Add the SMTP environment variables requested by the Blueprint to enable password-reset and contact emails. The free Render filesystem is temporary, so use a persistent database before relying on SQLite data in production.
+
 The contact endpoint currently validates submissions and returns success. Connect it to an email provider or database before treating it as production storage.
