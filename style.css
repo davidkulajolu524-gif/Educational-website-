@@ -933,6 +933,10 @@ footer {
     padding: 60px 20px;
 }
 
+body.dark footer {
+    background: #020617;
+}
+
 .footer-logo {
     display: flex;
     justify-content: center;
