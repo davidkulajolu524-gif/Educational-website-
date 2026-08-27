@@ -567,6 +567,9 @@ body.dark header {
 }
 
 .category {
+    color: inherit;
+    display: block;
+    text-decoration: none;
     background: var(--surface);
 
     padding: 35px 25px;

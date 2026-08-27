@@ -15,6 +15,7 @@ const mobileMenuButton = document.querySelector(".menu-btn");
 const navigation = document.querySelector(".nav-links");
 const backToTopButton = document.getElementById("topBtn");
 const searchInput = document.getElementById("searchInput");
+const selectedCategory = new URLSearchParams(window.location.search).get("category")?.trim().toLowerCase() || "";
 const apiUrl = path => `${window.location.protocol === "file:" ? "http://127.0.0.1:8000" : ""}${path}`;
 let marketplaceCourses = [];
 
@@ -265,6 +266,7 @@ document.querySelectorAll(".lesson-toggle").forEach(button => {
 async function loadLessons() {
     const marketplace = document.getElementById("marketplaceCourses");
     if (marketplace) {
+        if (searchInput && selectedCategory) searchInput.value = selectedCategory;
         try {
             marketplaceCourses = await (await fetch(apiUrl("/api/courses"))).json();
             renderMarketplace(marketplaceCourses);
@@ -391,7 +393,11 @@ function renderMarketplace(courses) {
     const marketplace = document.getElementById("marketplaceCourses");
     if (!marketplace) return;
     const term = searchInput?.value.trim().toLowerCase() || "";
-    const filtered = courses.filter(course => course.title.toLowerCase().includes(term) || course.category.toLowerCase().includes(term));
+    const filtered = courses.filter(course => {
+        const matchesCategory = !selectedCategory || course.category.toLowerCase() === selectedCategory;
+        const matchesSearch = !term || course.title.toLowerCase().includes(term) || course.category.toLowerCase().includes(term);
+        return matchesCategory && matchesSearch;
+    });
     marketplace.innerHTML = filtered.map(course => {
         const active = promoIsActive(course);
         const paid = course.price > 0;
@@ -431,16 +437,22 @@ function startPromoTimer() {
     const timer = document.getElementById("promoTimer");
     const promoCourse = marketplaceCourses.find(course => promoIsActive(course));
     if (!timer || !promoCourse) { if (timer) timer.textContent = "Explore free and paid courses"; return; }
+    let intervalId;
     const update = () => {
         const remaining = Math.max(0, new Date(promoCourse.promo_ends) - new Date());
-        if (!remaining) { timer.textContent = "Promo ended. Prices are back to normal."; renderMarketplace(marketplaceCourses); return; }
+        if (!remaining) {
+            timer.textContent = "Promo ended. Prices are back to normal.";
+            renderMarketplace(marketplaceCourses);
+            clearInterval(intervalId);
+            return;
+        }
         const hours = Math.floor(remaining / 3600000);
         const minutes = Math.floor((remaining % 3600000) / 60000);
         const seconds = Math.floor((remaining % 60000) / 1000);
         timer.textContent = `Limited offer ends in ${hours}h ${minutes}m ${seconds}s`;
     };
     update();
-    setInterval(update, 1000);
+    intervalId = setInterval(update, 1000);
 }
 
 const authForm = document.getElementById("authForm");
